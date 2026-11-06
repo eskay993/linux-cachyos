@@ -2,13 +2,17 @@
 # Runs inside an archlinux container with the repo mounted at /work.
 set -euo pipefail
 
-REPO_NAME="linux-cachyos-dongle"              # pacman repo name; must match the [section] in pacman.conf
+REPO_NAME="linux-cachyos-dongle"  # pacman repo name; must match the [section] in pacman.conf
 TAG="repo"                        # release tag that hosts the files
 PKGBASE="linux-cachyos-dongle"    # package name; differs from the stock linux-cachyos
 
-pacman -Syu --noconfirm --needed base-devel git sudo github-cli pacman-contrib
+pacman-key --init
+pacman-key --populate
+pacman -Sy --noconfirm archlinux-keyring cachyos-keyring
+pacman-key --populate
+pacman -Su --noconfirm --needed base-devel git sudo github-cli pacman-contrib
 
-useradd -m builder
+id builder >/dev/null 2>&1 || useradd -m builder
 echo 'builder ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/builder
 
 LTO_MODE="thin"                # "thin" or "full" keeps LTO; "none" builds much faster; "" uses the PKGBUILD default
