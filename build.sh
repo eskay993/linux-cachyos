@@ -2,7 +2,7 @@
 # Runs inside an archlinux container with the repo mounted at /work.
 set -euo pipefail
 
-REPO_NAME="linux-cachyos-dongle"  # pacman repo name; must match the [section] in pacman.conf
+REPO_NAME="linux-cachyos-dongle"              # pacman repo name; must match the [section] in pacman.conf
 TAG="repo"                        # release tag that hosts the files
 PKGBASE="linux-cachyos-dongle"    # package name; differs from the stock linux-cachyos
 
@@ -48,7 +48,7 @@ chown -R builder:builder /build
 cd /build
 
 # Rename so it doesn't clash with the stock linux-cachyos package
-sed -i -E 's/^([[:space:]]*_pkgsuffix=).*/\1"cachyos-custom"/' PKGBUILD
+sed -i -E 's/^([[:space:]]*_pkgsuffix=).*/\1"cachyos-dongle"/' PKGBUILD
 
 # Add your patches to the end of the source list (applied after the CachyOS patches)
 names=()
