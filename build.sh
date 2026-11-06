@@ -12,6 +12,9 @@ pacman -Sy --noconfirm archlinux-keyring cachyos-keyring
 pacman-key --populate
 pacman -Su --noconfirm --needed base-devel git sudo github-cli pacman-contrib
 
+# The CachyOS image's makepkg.conf points build/package directories at its own user's home; drop those lines
+sed -i -E '/^[^#]*notroot/d' /etc/makepkg.conf
+
 id builder >/dev/null 2>&1 || useradd -m builder
 echo 'builder ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/builder
 
