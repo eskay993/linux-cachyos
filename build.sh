@@ -2,7 +2,7 @@
 # Runs inside an archlinux container with the repo mounted at /work.
 set -euo pipefail
 
-REPO_NAME="linux-cachyos-dongle"  # pacman repo name; must match the [section] in pacman.conf
+REPO_NAME="eskay993-cachyos-repo" # pacman repo name; must match the [section] in pacman.conf
 TAG="repo"                        # release tag that hosts the files
 PKGBASE="linux-cachyos-dongle"    # package name; differs from the stock linux-cachyos
 
@@ -108,9 +108,10 @@ echo "$NEW_STATE" > /state/state.txt
 
 # ---- 6. Publish to the GitHub release ----------------------------------------
 if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-  gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "Pacman repo" \
+  gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "eskay993-cachyos-repo" \
     --notes "Automatically built pacman repository. Do not edit."
 fi
+gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --title "eskay993-cachyos-repo"
 
 gh release upload "$TAG" /out/* --repo "$GITHUB_REPOSITORY" --clobber
 
