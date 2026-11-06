@@ -6,6 +6,9 @@ REPO_NAME="linux-cachyos-dongle"  # pacman repo name; must match the [section] i
 TAG="repo"                        # release tag that hosts the files
 PKGBASE="linux-cachyos-dongle"    # package name; differs from the stock linux-cachyos
 
+# Pacman's download sandbox (Landlock) is blocked inside Docker; turn it off for every pacman call, including makepkg's
+sed -i 's/^\[options\]/[options]\nDisableSandbox/' /etc/pacman.conf
+
 pacman-key --init
 pacman-key --populate
 pacman -Sy --noconfirm archlinux-keyring cachyos-keyring
