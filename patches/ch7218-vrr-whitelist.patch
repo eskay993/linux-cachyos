@@ -1,0 +1,16 @@
+From: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+Subject: [PATCH] amdgpu: Add CH7218 PCON to the VRR whitelist (7.3.x)
+
+Chrontel CH7218 found in Ugreen DP -> HDMI 2.1 adapter (model 85564)
+works perfectly with VRR after testing.
+---
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -1648,6 +1648,7 @@ STATIC_IFN_KUNIT const uint32_t dm_freesync_pcon_whitelist[] = {
+ 	DP_BRANCH_DEVICE_ID_0060AD,
+ 	DP_BRANCH_DEVICE_ID_00E04C,
+ 	DP_BRANCH_DEVICE_ID_90CC24,
++	0x2B02F0, /* Chrontel CH7218 */
+ 	DP_BRANCH_DEVICE_ID_001CF8,
+ 	DP_BRANCH_DEVICE_ID_001FF2,
+ };
