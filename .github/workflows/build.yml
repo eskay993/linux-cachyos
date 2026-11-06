@@ -36,7 +36,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           FORCE: ${{ inputs.force }}
         run: |
-          docker run --rm \
+            docker run --rm --entrypoint bash \
             -e GH_TOKEN -e GPG_PRIVATE_KEY -e FORCE -e GITHUB_REPOSITORY \
             -v "$PWD:/work" -w /work \
-            archlinux:latest bash /work/build.sh
+            cachyos/docker-makepkg /work/build.sh
