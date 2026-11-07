@@ -19,10 +19,10 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 355
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Free disk space
         run: |
@@ -37,6 +37,6 @@ jobs:
           FORCE: ${{ inputs.force }}
         run: |
           docker run --rm --user root --entrypoint bash \
-          -e GH_TOKEN -e GPG_PRIVATE_KEY -e FORCE -e GITHUB_REPOSITORY \
-          -v "$PWD:/work" -w /work \
-          cachyos/docker-makepkg /work/build.sh
+            -e GH_TOKEN -e GPG_PRIVATE_KEY -e FORCE -e GITHUB_REPOSITORY \
+            -v "$PWD:/work" -w /work \
+            cachyos/docker-makepkg /work/build.sh
